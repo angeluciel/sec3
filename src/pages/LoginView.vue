@@ -19,16 +19,17 @@
       </div>
       <!-- forms -->
       <form class="flex flex-col gap-3" @submit.prevent="handleLogin">
-        <login-input label="email" type="email" class="relative z-5" />
-        <login-input label="password" type="password" class="relative z-4" />
+        <login-input label="email" type="email" class="relative z-5" v-model="email" />
+        <login-input label="password" type="password" class="relative z-4" v-model="password" />
         <div class="flex flex-col gap-20 justify-start items-start">
           <span class="font-nunito font-semibold text-[1rem] text-gray-500">Esqueceu a senha?</span>
           <fieldset class="flex gap-6 w-full">
             <button
               type="submit"
-              class="login-btn__base bg-primary-color hover:bg-blue-400 hover:translate-y-1 transition-all duration-300"
+              class="login-btn__base text-login-bg bg-primary-color hover:bg-blue-400 hover:translate-y-1 transition-all duration-300 active:text-white active:bg-blue-800 active:translate-y-0"
+              :disabled="loading"
             >
-              Entrar
+              {{ loading ? 'Entrando...' : 'Entrar' }}
             </button>
             <button
               class="login-btn__base border-2 border-primary-color text-primary-color hover:text-blue-400 hover:border-blue-400 hover:bg-blue-300/20 hover:translate-y-1 transition-all duration-300"
@@ -41,7 +42,7 @@
     </section>
     <!-- I M A G E -->
     <section class="hidden md:flex w-3/5 max-w-[660px] h-full relative justify-end">
-      <div class="flex h-full w-full bg-[#414348] items-center rounded-3xl">
+      <div class="flex h-full w-full bg-[#353638] items-center rounded-3xl">
         <img src="/images/loginIMG.svg" alt="Login" class="w-full object-cover" />
       </div>
     </section>
@@ -52,8 +53,9 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
-import { login } from '@/services/authService'
+import { login } from '../services/authService'
 import { useAuthStore } from '../stores/authStore'
+import { useToast } from 'primevue'
 
 const email = ref('')
 const password = ref('')
@@ -62,16 +64,28 @@ const loading = ref(false)
 const router = useRouter()
 const route = useRoute()
 const auth = useAuthStore()
+const toast = useToast()
 
 async function handleLogin() {
   loading.value = true
   try {
     const session = await login(email.value, password.value)
+
     auth.setSession(session)
-    const redirect = (route.query.redirect as string) || { name: 'Dashboard' }
-    router.push(redirect)
+    const redirect = route.query.redirect
+    if (typeof redirect === 'string') {
+      router.push(redirect)
+    } else {
+      router.push({ name: 'Dashboard' })
+    }
+    toast.add({
+      severity: 'success',
+      summary: 'Bem vindo!',
+      detail: `Olá, ${session.user.name}! É bom tê-lo de volta!`,
+      life: 3000,
+    })
   } catch (err: any) {
-    console.error('login failed:', err)
+    toast.add({ severity: 'error', summary: 'Falha no login.', detail: err.message, life: 3000 })
   } finally {
     loading.value = false
   }

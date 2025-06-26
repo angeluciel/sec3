@@ -1,6 +1,6 @@
-import axios from 'axios'
+import * as real from './authService.real'
+import * as mock from './authService.mock'
 
-export async function login(email: string, password: string) {
-  const { data } = await axios.post('/api/auth/login', { email, password })
-  return data
-}
+const useMock = import.meta.env.VITE_USE_MOCK === 'true'
+
+export const login = useMock ? mock.login : real.login

@@ -23,12 +23,39 @@ const router = createRouter({
       name: 'Dashboard',
       component: Dashboard,
       meta: { requiresAuth: true },
+      children: [
+        {
+          path: 'importFiles',
+          name: 'ImportFiles',
+          component: () => import('@/pages/files/uploadReport.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          path: 'expenses',
+          name: 'Expenses',
+          component: () => import('@/pages/files/expensesView.vue'),
+          meta: { requiresAuth: true },
+        },
+      ],
+    },
+    {
+      path: '/funcionarios',
+      name: 'Funcionarios',
+      component: () => import('@/pages/files/funcionarios.vue'),
+      meta: { requiresAuth: true },
     },
   ],
 })
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const auth = useAuthStore()
+
+  if (!auth.token) {
+    const storedToken = localStorage.getItem('token')
+    if (storedToken) {
+      await auth.restoreSession(storedToken)
+    }
+  }
   if (to.meta.requiresAuth && !auth.token) {
     next({ name: 'Login', query: { redirect: to.fullPath } })
   } else if (to.name === 'Login' && auth.token) {

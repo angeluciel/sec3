@@ -25,4 +25,8 @@
   .login-btn__base {
     @apply rounded-lg px-5 text-[1rem] py-4 w-32 font-semibold font-nunito;
   }
+
+  .aside-btn__inactive {
+    @apply p-2 text-primary-color rounded-lg hover:bg-primary-color/10;
+  }
 }
