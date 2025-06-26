@@ -18,14 +18,21 @@
         </p>
       </div>
       <!-- forms -->
-      <form class="flex flex-col gap-3">
+      <form class="flex flex-col gap-3" @submit.prevent="handleLogin">
         <login-input label="email" type="email" class="relative z-5" />
         <login-input label="password" type="password" class="relative z-4" />
         <div class="flex flex-col gap-20 justify-start items-start">
           <span class="font-nunito font-semibold text-[1rem] text-gray-500">Esqueceu a senha?</span>
           <fieldset class="flex gap-6 w-full">
-            <button type="submit" class="login-btn__base bg-primary-color">Entrar</button>
-            <button class="login-btn__base border-2 border-primary-color text-primary-color">
+            <button
+              type="submit"
+              class="login-btn__base bg-primary-color hover:bg-blue-400 hover:translate-y-1 transition-all duration-300"
+            >
+              Entrar
+            </button>
+            <button
+              class="login-btn__base border-2 border-primary-color text-primary-color hover:text-blue-400 hover:border-blue-400 hover:bg-blue-300/20 hover:translate-y-1 transition-all duration-300"
+            >
               Criar conta
             </button>
           </fieldset>
@@ -42,5 +49,31 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
+import { login } from '@/services/authService'
+import { useAuthStore } from '../stores/authStore'
+
+const email = ref('')
+const password = ref('')
+const loading = ref(false)
+
+const router = useRouter()
+const route = useRoute()
+const auth = useAuthStore()
+
+async function handleLogin() {
+  loading.value = true
+  try {
+    const session = await login(email.value, password.value)
+    auth.setSession(session)
+    const redirect = (route.query.redirect as string) || { name: 'Dashboard' }
+    router.push(redirect)
+  } catch (err: any) {
+    console.error('login failed:', err)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
