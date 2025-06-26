@@ -1,0 +1,46 @@
+<template>
+  <div class="flex h-dvh w-dvw md:gap-24 lg:gap-32 justify-end items-center p-4 bg-login-bg">
+    <section class="flex flex-col gap-20 w-full md:w-fit max-w-[660px] h-full py-24">
+      <!-- l o g o -->
+      <div class="flex gap-3">
+        <Icon icon="ri:chat-private-fill" width="24" height="24" class="text-primary-color" />
+        <h1 class="text-[1rem] font-nunito font-extrabold text-text-white">NeiReports</h1>
+      </div>
+      <!-- t i t l e -->
+      <div class="flex flex-col gap-2">
+        <h1
+          class="font-nunito font-extrabold text-[2rem] md:text-[2.5rem] xl:text-[3rem] text-text-white w-fit"
+        >
+          Envie relatórios com<br />Privacidade
+        </h1>
+        <p class="font-nunito font-extrabold text-[1rem] text-gray-600 w-fit">
+          Mas antes, vamos entrar na sua conta
+        </p>
+      </div>
+      <!-- forms -->
+      <form class="flex flex-col gap-3">
+        <login-input label="email" type="email" class="relative z-5" />
+        <login-input label="password" type="password" class="relative z-4" />
+        <div class="flex flex-col gap-20 justify-start items-start">
+          <span class="font-nunito font-semibold text-[1rem] text-gray-500">Esqueceu a senha?</span>
+          <fieldset class="flex gap-6 w-full">
+            <button type="submit" class="login-btn__base bg-primary-color">Entrar</button>
+            <button class="login-btn__base border-2 border-primary-color text-primary-color">
+              Criar conta
+            </button>
+          </fieldset>
+        </div>
+      </form>
+    </section>
+    <!-- I M A G E -->
+    <section class="hidden md:flex w-3/5 max-w-[660px] h-full relative justify-end">
+      <div class="flex h-full w-full bg-[#414348] items-center rounded-3xl">
+        <img src="/images/loginIMG.svg" alt="Login" class="w-full object-cover" />
+      </div>
+    </section>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { Icon } from '@iconify/vue'
+</script>
