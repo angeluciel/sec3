@@ -76,7 +76,7 @@ async function handleLogin() {
     if (typeof redirect === 'string') {
       router.push(redirect)
     } else {
-      router.push({ name: 'Dashboard' })
+      router.push({ name: 'DashboardChild' })
     }
     toast.add({
       severity: 'success',

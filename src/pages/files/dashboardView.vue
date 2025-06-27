@@ -14,7 +14,7 @@
       <template #separator>/</template>
     </Breadcrumb>
     <div class="flex flex-col items-center justify-center h-screen">
-      <h1 class="text-3xl font-bold mb-4">Tela de Reports</h1>
+      <h1 class="text-3xl font-bold mb-4">Dashboard top</h1>
     </div>
   </div>
 </template>
@@ -22,5 +22,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const items = ref([{ label: 'Dashboard', route: { name: 'DashboardChild' } }, { label: 'Reports' }])
+const items = ref([{ label: 'Dashboard' }])
 </script>

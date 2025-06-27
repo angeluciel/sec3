@@ -1,9 +1,11 @@
 <template>
-  <aside class="flex flex-col h-full py-9 px-6 justify-top">
+  <aside
+    class="flex flex-col h-[calc(100vh-4rem)] py-9 items-center justify-top sticky top-16 w-24 border-r border-gray-500"
+  >
     <nav class="flex flex-col gap-3">
       <!-- dashboard -->
       <router-link
-        :to="{ name: 'Dashboard' }"
+        :to="{ name: 'DashboardChild' }"
         class="aside-btn__inactive"
         exact-active-class="bg-primary-color/20"
       >

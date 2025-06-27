@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <Header />
-    <main class="flex">
-      <AsideApp />
-      <div class="flex flex-col items-center justify-center h-screen">
-        <h1 class="text-3xl font-bold mb-4">Dashboard</h1>
-        <p>Bem-vindo ao seu painel de controle!</p>
-      </div>
-    </main>
-  </div>
+  <dashLayout>
+    <router-view></router-view>
+  </dashLayout>
 </template>
 
 <script setup lang="ts">
-import Header from '../components/base/Header.vue'
-import AsideApp from '../components/base/AsideApp.vue'
+import dashLayout from '../layouts/layDashboard.vue'
+import { ref } from 'vue'
+
+const items = ref([
+  { label: 'Dashboard' },
+  /* { label: 'Funcionarios', route: { name: 'Funcionarios' } }, */
+])
 </script>
 
 <style scoped></style>

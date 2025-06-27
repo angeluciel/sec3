@@ -1,5 +1,7 @@
 <template>
-  <header class="flex justify-between items-center w-full py-5 pl-8 pr-12 border-b border-gray-500">
+  <header
+    class="flex justify-between items-center w-full py-5 pl-8 pr-12 border-b border-gray-500 sticky top-0 h-16"
+  >
     <!-- logo -->
     <div class="flex gap-6 items-center">
       <Icon icon="ri:chat-private-fill" width="32" height="32" class="text-primary-color" />

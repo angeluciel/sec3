@@ -14,6 +14,7 @@ import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
+import { Breadcrumb } from 'primevue'
 
 const app = createApp(App)
 
@@ -28,5 +29,6 @@ app.use(PrimeVue, {
 app.use(ToastService)
 
 app.component('Toast', Toast)
+app.component('Breadcrumb', Breadcrumb)
 
 app.mount('#app')

@@ -3,13 +3,14 @@
     class="flex relative justify-start w-full rounded-lg border border-gray-500 text-gray-500 transition-all duration-300"
   >
     <input
-      id="a"
+      :id="label"
       class="w-full h-full p-5 outline-none peer focus:border-primary-color"
       placeholder=" "
       :type="type"
       v-model="inputModel"
+      :autocomplete="type"
     />
-    <label for="a" class="login-button__animation">{{ label }}</label>
+    <label :for="label" class="login-button__animation">{{ label }}</label>
   </fieldset>
 </template>
 
@@ -19,7 +20,7 @@ import { defineProps, computed } from 'vue'
 const props = defineProps<{
   label: string
   type: string
-  modelValue: { type: String; default: '' }
+  modelValue: string | ''
 }>()
 
 const emit = defineEmits(['update:modelValue'])

@@ -5,6 +5,9 @@ import { useAuthStore } from '../stores/authStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0, behavior: 'smooth' }
+  },
   routes: [
     {
       path: '/login',
@@ -19,11 +22,21 @@ const router = createRouter({
       meta: { requiresGuest: true },
     },
     {
-      path: '/dashboard',
+      path: '/Manage',
       name: 'Dashboard',
       component: Dashboard,
       meta: { requiresAuth: true },
       children: [
+        {
+          path: '',
+          redirect: '/Manage/Dashboard',
+        },
+        {
+          path: 'Dashboard',
+          name: 'DashboardChild',
+          component: () => import('@/pages/files/dashboardView.vue'),
+          meta: { requiresAuth: true },
+        },
         {
           path: 'importFiles',
           name: 'ImportFiles',
