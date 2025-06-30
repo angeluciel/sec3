@@ -24,7 +24,7 @@
 import { ref } from 'vue'
 
 const items = ref([
-  { label: 'Dashboard', route: { name: 'Dashboard' } },
+  { label: 'Dashboard', route: { name: 'DashboardChild' } },
   { label: 'Reports', route: { name: 'Expenses' } },
   { label: 'Upload New' },
 ])

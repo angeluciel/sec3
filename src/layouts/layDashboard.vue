@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen overflow-hidden">
+  <div class="flex flex-col h-screen overflow-hidden bg-main-bg">
     <HeaderApp />
     <div class="flex overflow-hidden">
       <AsideApp />
